@@ -2,7 +2,9 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import {ReactComponent as Logo} from '../../assets/crown.svg'
 import './header.styles.scss';
-const Header=()=>(
+import {auth} from '../../firebase/firebase.utils' //87.authtication
+
+const Header=({currentUser})=>(
 <div className='header'>
 
 <Link className='logo-container' to="/">
@@ -17,6 +19,14 @@ SHOP
 <Link className='option' to="/shop">
 CONTACT
 </Link>
+
+{currentUser ? //87 if it is a object, return true, if null, return false 
+<div className='option' onClick={()=>auth.signOut()}>SIGN OUT </div>
+:
+<Link className='option' to='/sign'>SIGN IN</Link>
+
+}
+
 </div>
 
 
