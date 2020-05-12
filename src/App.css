@@ -10,6 +10,6 @@ a{
 
 
 
-*{  /*87 make the line protusion disappear*/
+*{  /*87 make the line protusion disappear and align border with sign in box*/
     box-sizing:border-box;
 }
