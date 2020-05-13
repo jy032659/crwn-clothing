@@ -14,20 +14,28 @@ const config={
   }
 
   export const createUserProfileDocument=async(userAuth, additionalData)=>{
+    console.log("userAuth  is")
+    console.log(userAuth)
     if(!userAuth) return;
 
     const userRef=firestore.doc(`users/${userAuth.uid}`);
+    
   const snapShot= await userRef.get(); //90
+  
 
-  if(!snapShot.exists){ //storing user data 90
+  if(!snapShot.exists){ //just for judging whether user exists or not 
+                      // simplified form: firestore.doc(`users/${userAuth.uid}`).get().exists
     const {displayName,email}=userAuth;
+    // console.log("displayname is")
+    // console.log({displayName})
     const createdAt=new Date();
     try{
-await userRef.set({
-displayName,
-email,
+await userRef.set({// this set function determines what info will appear in firebase
+displayName,//this lines seem not to have function, because the displayName is passed
+email,      //by ...additionalData,,
 createdAt,
-...additionalData
+...additionalData//pass from signup.component with this.state.playName information,
+                 //rather than user.playerName
 
 })
     }catch(error){
@@ -38,6 +46,7 @@ createdAt,
  
   }
 
+  
   firebase.initializeApp(config);
 
   export const auth=firebase.auth();
