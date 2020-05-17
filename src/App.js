@@ -23,24 +23,28 @@ unsubscribeFromAuth=null;
 
 
 componentDidMount(){ //85. fetch data to back-end from firebase
-const {setCurrentUser}=this.props
+   console.log(this.props.setCurrentUser)
+const {setCurrentUser}=this.props 
 
 this.unsubscribeFromAuth=auth.onAuthStateChanged(async userAuth=>{ //90 async added in, 92 to indicate whether user log in or logout
  if(userAuth){
 const userRef=await createUserProfileDocument(userAuth);
 
 userRef.onSnapshot(snapShot=>{
-setCurrentUser({ //modified in 106
+  setCurrentUser({ //modified in 106, here setCurrentUser is a function, the
+                  // object within it is the 'payload' parameter to be passed
 currentUser:{
 id: snapShot.id,
 ...snapShot.data()
-}
+}                 //whenever our user snapshot updates we are setting 
+                // the user reduce or value with our new object 
 })
 // console.log(this.state);
 });
 
  }
-setCurrentUser(userAuth) // log out, user is set to be null
+ setCurrentUser(userAuth) // log out, userAuth  is  null
+
 });
 }
 
@@ -65,10 +69,35 @@ return (
   
 }
 
-const mapDispatchToProps=dispatch=>(
-{ setCurrentUser:user=>dispatch(setCurrentUser(user))
+// const mapDispatchToProps=dispatch=>(
+// { setCurrentUser:user=>dispatch(setCurrentUser(user))
 
-}//106
+// }//106
+// )
 
-)
+
+
+function mapDispatchToProps(dispatch){
+  
+  return (
+  
+{setCurrentUser :function (user){ // this.props is determined by this line
+
+
+  return(  
+  dispatch(setCurrentUser(user))) //only this one is the function from user.actions
+                                  // other setCurrentUser is just a object 
+                                  //after the first return, setCurrentUser will be 
+                                  //an action object,like 
+                                //   {
+                                //     type:'SET_CURRENT_USER',
+                                //     payload: {id: "6rTzLsfZYGZ1diGh7XNgs0FC7Zg2", email: "z5133160@gmail.com", createdAt: t, displayName: "Tian Tan"}
+                                //    }                 
+                                //  then this action object will be dispatched(or updated to user.reducer) 
+                                //  this. props.setCurrentUser is hence altered
+}
+
+}
+)}
+
 export default connect(null,mapDispatchToProps)(App);

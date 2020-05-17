@@ -35,8 +35,12 @@ CONTACT
 
 )
 //105. 
-const mapStateToProps=state=>({
+const mapStateToProps=state=>({  //this state is root reducer
     
 currentUser:state.user.currentUser
 })
-export default connect(mapStateToProps)(Header);
+export default connect(mapStateToProps)(Header); 
+
+//The connect() function connects a React component to a Redux store.
+//It does not modify the component class passed to it; instead, it 
+//returns a new, connected component class that wraps the component you passed in.
