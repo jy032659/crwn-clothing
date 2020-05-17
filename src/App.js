@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import HomePage from './pages/homepage/homepage.component'
-import {Switch,Route} from 'react-router-dom';
+import {Switch,Route,Redirect} from 'react-router-dom';
 import ShopPage from './pages/shop/shop.component.jsx'
 import Header from './components/header/header.component'
 import SignInAndSignUpPage from './pages/sign-in-and-sign-up/sign-in-and-sign-up'
@@ -23,7 +23,7 @@ unsubscribeFromAuth=null;
 
 
 componentDidMount(){ //85. fetch data to back-end from firebase
-   console.log(this.props.setCurrentUser)
+  //  console.log(this.props)
 const {setCurrentUser}=this.props 
 
 this.unsubscribeFromAuth=auth.onAuthStateChanged(async userAuth=>{ //90 async added in, 92 to indicate whether user log in or logout
@@ -33,10 +33,9 @@ const userRef=await createUserProfileDocument(userAuth);
 userRef.onSnapshot(snapShot=>{
   setCurrentUser({ //modified in 106, here setCurrentUser is a function, the
                   // object within it is the 'payload' parameter to be passed
-currentUser:{
 id: snapShot.id,
 ...snapShot.data()
-}                 //whenever our user snapshot updates we are setting 
+              //whenever our user snapshot updates we are setting 
                 // the user reduce or value with our new object 
 })
 // console.log(this.state);
@@ -59,7 +58,7 @@ return (
   <Switch>
 <Route exact path='/' component={HomePage} />
 <Route path='/shop' component={ShopPage}   />
-<Route path='/signin' component={SignInAndSignUpPage} />
+<Route exact path='/signin' render={()=>this.props.currentUser? (<Redirect to='/' />):(<SignInAndSignUpPage />)} />
   </Switch>
     
     </div>
@@ -74,7 +73,12 @@ return (
 
 // }//106
 // )
+const mapStateToProps=({user})=>(
+  
+  {
+currentUser:user.currentUser
 
+})
 
 
 function mapDispatchToProps(dispatch){
@@ -82,8 +86,11 @@ function mapDispatchToProps(dispatch){
   return (
   
 {setCurrentUser :function (user){ // this.props is determined by this line
-
-
+                                    // still, setCurrentUser is a function to be used 
+                                    // in above line 34 or line 46, 
+                                    //that means whatever passed to setCurrentUser 
+                                    // in line 34 and 46, will be dispatched to user.reducer
+                                   // and fire the action
   return(  
   dispatch(setCurrentUser(user))) //only this one is the function from user.actions
                                   // other setCurrentUser is just a object 
@@ -100,4 +107,4 @@ function mapDispatchToProps(dispatch){
 }
 )}
 
-export default connect(null,mapDispatchToProps)(App);
+export default connect(mapStateToProps,mapDispatchToProps)(App);

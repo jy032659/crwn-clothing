@@ -24,7 +24,7 @@ CONTACT
 {currentUser ? //87 if it is a object, return true, if null, return false 
 <div className='option' onClick={()=>auth.signOut()}>SIGN OUT </div>
 :
-<Link className='option' to='/sign'>SIGN IN</Link>
+<Link className='option' to='/signIn'>SIGN IN</Link>
 
 }
 
