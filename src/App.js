@@ -84,18 +84,37 @@ currentUser:user.currentUser
 
 
 function mapDispatchToProps(dispatch){
-  
+// in my opinion, once patching, action function can be used in anywhere within
+//current component,like setCurrentUse(),or like toggleCartHidden() in cart-icon 
+//component, and those functions are also contained in this.state.props, once
+//action (or called action function)is triggered, we will dispatch that new object
+//into our store, then through root reducer, target reducer will 
+// be executed to return a new object which
+// represents the  next state after firing action
+
   return (
   
 {setCurrentUser :function (user){ // this.props is determined by this line
                                     // still, setCurrentUser is a function to be used 
-                                    // in above line 34 or line 46, 
+   
+    // console.log("this is set CurrentUser",(setCurrentUser(user)))
+  
+    
+    // in above line 34 or line 46, 
                                     //that means whatever passed to setCurrentUser 
                                     // in line 34 and 46, will be dispatched to user.reducer
                                    // and fire the action
-  return(  
-  dispatch(setCurrentUser(user))) // this one is the function from user.actions
-                                  
+  return( 
+    
+  dispatch(setCurrentUser(user))
+  
+  ) // this one is the function from user.actions
+  
+  //after setCurrentUser(user), it will become an actual action object with 
+  //both type and payload, then we dispatch to the reducer to update the state                                
+
+
+
                                   //after the first return, setCurrentUser will be 
                                   //an action object,like 
                                 //   {
