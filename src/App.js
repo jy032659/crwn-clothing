@@ -73,7 +73,9 @@ return (
 
 // }//106
 // )
-const mapStateToProps=({user})=>(
+const mapStateToProps=({user})=>( //from user.reducer we can see with connect()
+                                  // the parameter will return {user{currentUser}} 
+                //data is firstly flowed through root-reducer->user.reducer
   
   {
 currentUser:user.currentUser
@@ -92,8 +94,8 @@ function mapDispatchToProps(dispatch){
                                     // in line 34 and 46, will be dispatched to user.reducer
                                    // and fire the action
   return(  
-  dispatch(setCurrentUser(user))) //only this one is the function from user.actions
-                                  // other setCurrentUser is just a object 
+  dispatch(setCurrentUser(user))) // this one is the function from user.actions
+                                  
                                   //after the first return, setCurrentUser will be 
                                   //an action object,like 
                                 //   {
@@ -108,3 +110,11 @@ function mapDispatchToProps(dispatch){
 )}
 
 export default connect(mapStateToProps,mapDispatchToProps)(App);
+
+//If a mapStateToProps function is specified, 
+//the new wrapper component will subscribe to Redux store updates. 
+//This means that any time the store is updated, mapStateToProps will be called.
+// The results of mapStateToProps must be a plain object,
+// which will be merged into the wrapped component’s props. 
+//If you don't want to subscribe to store updates, 
+//pass null or undefined in place of mapStateToProps.

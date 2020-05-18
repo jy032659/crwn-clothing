@@ -4,8 +4,11 @@ import {Link} from 'react-router-dom';
 import {ReactComponent as Logo} from '../../assets/crown.svg'
 import './header.styles.scss';
 import {auth} from '../../firebase/firebase.utils' //87.authtication
+import CartIcon from '../cart-icon/cart-icon.component';//108
+import CartDropdown from '../cart-dropdown/cart-dropdown.component'
 
-const Header=({currentUser})=>(
+
+const Header=({currentUser, hidden})=>(
 <div className='header'>
 
 <Link className='logo-container' to="/">
@@ -24,21 +27,37 @@ CONTACT
 {currentUser ? //87 if it is a object, return true, if null, return false 
 <div className='option' onClick={()=>auth.signOut()}>SIGN OUT </div>
 :
-<Link className='option' to='/signIn'>SIGN IN</Link>
-
+(<Link className='option' to='/signIn'>SIGN IN</Link>)
 }
-
+<CartIcon />
 </div>
 
+{
 
+    hidden?null:<CartDropdown />  
+
+}
+{/* this is where we need to think about how to drop down or hide 
+not just within this component, but also think about how to hide or show
+in other component as well
+*/}
 </div>
 
 )
 //105. 
-const mapStateToProps=state=>({  //this state is root reducer
+// const mapStateToProps=state=>({  //this state is root reducer
     
-currentUser:state.user.currentUser
-})
+// currentUser:state.user.currentUser
+// })
+
+const mapStateToProps=({user:{currentUser},cart:{hidden}})=>({  //this state is root reducer
+    
+    currentUser,
+    hidden
+    })   //110 provided a more advanced way to destructure the object, original 
+    // one is shown just above
+
+
 export default connect(mapStateToProps)(Header); 
 
 //The connect() function connects a React component to a Redux store.
