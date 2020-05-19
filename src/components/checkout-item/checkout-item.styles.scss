@@ -23,7 +23,13 @@
     }
   
     .quantity {
-      padding-left: 20px;
+      display: flex;  // to make all items display horizontally 
+      .arrow{ //127
+        cursor:pointer; //to make it a clickable item 
+      }
+      .value{
+        margin:0 10px;
+      }
     }
   
     .remove-button {
