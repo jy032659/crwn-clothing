@@ -4,6 +4,7 @@ import {toggleCartHidden} from '../../redux/cart/cart.actions'
 import {selectCartItemsCount} from '../../redux/cart/cart.selectors'
 import {ReactComponent as ShoppingIcon} from '../../assets/shopping-bag.svg'
 import './cart-icon.styles.scss'
+import {createStructuredSelector} from 'reselect'
 
 //second step is then adding {toggleCartHidden} for updating purpose
 // third step is adding cartreducer to root reducer
@@ -20,8 +21,8 @@ const mapDispatchToProps=dispatch =>({
 toggleCartHidden:()=>dispatch(toggleCartHidden())
 });     //first step is to write this function 
 
-const mapStateToProps= (state)=>({   //117
-itemCount: selectCartItemsCount(state)//119, notice how the 'state' flows in cart.selector 
+const mapStateToProps= createStructuredSelector({   //117
+itemCount: selectCartItemsCount//119, notice how the 'state' flows in cart.selector 
 }) //this part code is called selector, because we only use small portion
 // of the state, and every time the state changes, this part will be re-render 
 //even nothing was changed in this part, so what we want is that  if nothing gets

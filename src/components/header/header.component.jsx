@@ -3,6 +3,11 @@ import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
 import {ReactComponent as Logo} from '../../assets/crown.svg'
 import './header.styles.scss';
+
+import {createStructuredSelector} from 'reselect';
+import {selectCartHidden} from '../../redux/cart/cart.selectors'
+import {selectCurrentUser} from '../../redux/user/user.selector';
+
 import {auth} from '../../firebase/firebase.utils' //87.authtication
 import CartIcon from '../cart-icon/cart-icon.component';//108
 import CartDropdown from '../cart-dropdown/cart-dropdown.component'
@@ -50,10 +55,10 @@ in other component as well
 // currentUser:state.user.currentUser
 // })
 
-const mapStateToProps=({user:{currentUser},cart:{hidden}})=>({  //this state is root reducer
+const mapStateToProps=createStructuredSelector({  //this state is root reducer
     
-    currentUser,
-    hidden
+    currentUser:selectCurrentUser,
+    hidden:selectCartHidden
     })   //110 provided a more advanced way to destructure the object, original 
     // one is shown just above
 

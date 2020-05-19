@@ -9,7 +9,11 @@ const selectCart=state=>state.cart;// to invoke following two functions,
 export const selectCartItems=createSelector(
 [selectCart],
 cart=>cart.cartItems
+)
 
+export const selectCartHidden=createSelector( //120
+    [selectCart],
+    cart=>cart.hidden
 )
 
 export const selectCartItemsCount=createSelector(
@@ -17,6 +21,14 @@ export const selectCartItemsCount=createSelector(
     cartItems=>
     cartItems.reduce((accumalatedQuantity,cartItem)=>accumalatedQuantity+cartItem.quantity,
 0)
+)
+
+export const selectCartTotal=createSelector(
+    [selectCartItems],
+ cartItems=>
+    cartItems.reduce((accumalatedQuantity,cartItem)=>accumalatedQuantity+cartItem.quantity*cartItem.price,
+0) 
+
 )
 
 //2 arguments needs to be passed, the first one is 
