@@ -22,11 +22,11 @@ const Header=({currentUser, hidden})=>(
 
 <div className='options'>
 <Link className='option' to="/shop">
-SHOP
+SHOP test
 </Link>
 
 <Link className='option' to="/shop">
-CONTACT
+CONTACT test
 </Link>
 
 {currentUser ? //87 if it is a object, return true, if null, return false 
