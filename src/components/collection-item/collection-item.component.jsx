@@ -15,7 +15,7 @@ return( //addItem func added in 112
 </div>
 
 <div className='collection-footer'>
-<span className='price'>{name}</span>
+<span className='name'>{name}</span>
 <span className='price'>{price}</span>
 </div>
 

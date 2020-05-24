@@ -19,32 +19,23 @@
 //   })();
 
 
-const hello=(user)=>{
-  return ({Stringg:user,
-    Numb:user   
-  })
+const COLLECTION_ID_MAP={
+    hats:1,
+    sneakers:2,
+    jackets:3,
+    womens:4,
+    mens:5
 }
-const y="xixix";
-const change=()=>{return y}
+const collection={
+hats:"hat1",
+sneakers:"sneakers2",
+jackets:"jackets3",
+    womens:"womens4",
+    mens:"mens5"
 
-
-const xix="hehe";
-const lal="jejw"
-const OBJECT={arrays:[1,2,3],
-STRINGG:"heihei",
-NUM:123,
-FUNC: hello(y)
 }
+console.log(Object.keys(COLLECTION_ID_MAP).map(key=>collection[key]))
 
-const {FUNC}=OBJECT;
-var {NUM}=OBJECT;
-
-console.log(FUNC)
-
-function temp1(para){
-  return {FUNC:change() }
-}
-console.log(temp1(xix))
 
 // const mapDispatchToProps=dispatch=>(
 // { setCurrentUser:user=>dispatch(setCurrentUser(user))
