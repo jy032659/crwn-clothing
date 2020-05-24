@@ -5,10 +5,9 @@ import {addItem} from '../../redux/cart/cart.actions'
 
 
 import './collection-item.styles.scss';
-const CollectionItem=({item,addItem})=>{//whole structure has been modified 
-    // because we need item property to be added into the cart item array
+const CollectionItem=({item,addItem})=>{
 const {name,price,imageUrl}=item;
-return( //addItem func added in 112
+return( 
 <div className='collection-item'>
 
 <div className='image' style={{backgroundImage:`url(${imageUrl})`}}>
