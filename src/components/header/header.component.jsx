@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {Link} from 'react-router-dom';
+
 import {ReactComponent as Logo} from '../../assets/crown.svg'
 import './header.styles.scss';
 
@@ -11,49 +11,76 @@ import {selectCurrentUser} from '../../redux/user/user.selector';
 import {auth} from '../../firebase/firebase.utils' //87.authtication
 import CartIcon from '../cart-icon/cart-icon.component';//108
 import CartDropdown from '../cart-dropdown/cart-dropdown.component'
+import {
+    HeaderContainer,
+    LogoContainer,
+    OptionsContainer,
+    OptionLink
+  } from './header.styles';
 
 
-const Header=({currentUser, hidden})=>(
-<div className='header'>
+  const Header = ({ currentUser, hidden }) => (
+    <HeaderContainer>
+      <LogoContainer to='/'>
+        <Logo className='logo' />
+      </LogoContainer>
+      <OptionsContainer>
+        <OptionLink to='/shop'>SHOP</OptionLink>
+        <OptionLink to='/shop'>CONTACT</OptionLink>
+        {currentUser ? (
+          <OptionLink as='div' onClick={() => auth.signOut()}>
+            SIGN OUT
+          </OptionLink>
+        ) : (
+          <OptionLink to='/signin'>SIGN IN</OptionLink>
+        )}
+        <CartIcon />
+      </OptionsContainer>
+      {hidden ? null : <CartDropdown />}
+    </HeaderContainer>
+  );
 
-<Link className='logo-container' to="/">
-<Logo className='logo'/>
-</Link>
+// const Header=({currentUser, hidden})=>(
+// <div className='header'>
 
-<div className='options'>
-<Link className='option' to="/shop">
-SHOP test
-</Link>
+// <Link className='logo-container' to="/">
+// <Logo className='logo'/>
+// </Link>
 
-<Link className='option' to="/shop">
-CONTACT test
-</Link>
+// <div className='options'>
+// <Link className='option' to="/shop">
+// SHOP 
+// </Link>
 
-{currentUser ? //87 if it is a object, return true, if null, return false 
-<div className='option' onClick={()=>auth.signOut()}>SIGN OUT </div>
-:
-(<Link className='option' to='/signin'>SIGN IN</Link>)
-}
-<CartIcon />
-</div>
+// <Link className='option' to="/shop">
+// CONTACT 
+// </Link>
 
-{
+// {currentUser ? //87 if it is a object, return true, if null, return false 
+// <div className='option' onClick={()=>auth.signOut()}>SIGN OUT </div>
+// :
+// (<Link className='option' to='/signin'>SIGN IN</Link>)
+// }
+// <CartIcon />
+// </div>
 
-    hidden?null:<CartDropdown />  
+// {
 
-}
-{/* this is where we need to think about how to drop down or hide 
-not just within this component, but also think about how to hide or show
-in other component as well
-*/}
-</div>
+//     hidden?null:<CartDropdown />  
 
-)
-//105. 
-// const mapStateToProps=state=>({  //this state is root reducer
+// }
+// {/* this is where we need to think about how to drop down or hide 
+// not just within this component, but also think about how to hide or show
+// in other component as well
+// */}
+// </div>
+
+// )
+// //105. 
+// // const mapStateToProps=state=>({  //this state is root reducer
     
-// currentUser:state.user.currentUser
-// })
+// // currentUser:state.user.currentUser
+// // })
 
 const mapStateToProps=createStructuredSelector({  //this state is root reducer
     

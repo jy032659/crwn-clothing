@@ -11,6 +11,7 @@ import{connect} from 'react-redux';//106
 import{setCurrentUser} from './redux/user/user.actions'
 import {selectCurrentUser}from './redux/user/user.selector'
 
+
 import CheckoutPage from './pages/checkout/checkout.component'
 //85.this component is from functional class to class component
 //for auth purpose
@@ -25,7 +26,8 @@ class App extends React.Component {
 unsubscribeFromAuth=null;
 
 
-componentDidMount(){ //85. fetch data to back-end from firebase
+componentDidMount(){ 
+  //85. fetch data to back-end from firebase
   //  console.log(this.props)
 const {setCurrentUser}=this.props 
 
@@ -34,7 +36,8 @@ this.unsubscribeFromAuth=auth.onAuthStateChanged(async userAuth=>{ //90 async ad
 const userRef=await createUserProfileDocument(userAuth);
 
 userRef.onSnapshot(snapShot=>{
-  setCurrentUser({ //modified in 106, here setCurrentUser is a function, the
+  setCurrentUser({ // here onSnapshot is like a listener, any delete, update will trigger it 
+    //modified in 106, here setCurrentUser is a function, the
                   // object within it is the 'payload' parameter to be passed
 id: snapShot.id,
 ...snapShot.data()
@@ -82,7 +85,7 @@ const mapStateToProps=createStructuredSelector( //from user.reducer we can see w
                 //data is firstly flowed through root-reducer->user.reducer
   
   {
-currentUser:selectCurrentUser
+currentUser:selectCurrentUser,
 
 })
 

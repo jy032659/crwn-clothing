@@ -19,22 +19,41 @@
 //   })();
 
 
-const COLLECTION_ID_MAP={
-    hats:1,
-    sneakers:2,
-    jackets:3,
-    womens:4,
-    mens:5
-}
-const collection={
-hats:"hat1",
-sneakers:"sneakers2",
-jackets:"jackets3",
-    womens:"womens4",
-    mens:"mens5"
+// transformedCollection.reduce((accumulator,collection)=>{
+//     accumulator[collection.title.toLowerCase()]=collection;
+//     return accumulator
+//   },{})
 
-}
-console.log(Object.keys(COLLECTION_ID_MAP).map(key=>collection[key]))
+var numbers=[{
+   id:1,
+   title:'mens' 
+},{id:2,
+title:'womens'},{
+    id:3,
+    title:'jackets'
+},{
+    id:1,
+    title:'hehe'
+}];
+const newNumber=numbers.reduce((accumulator,collection)=>{
+   
+accumulator[collection.id]=collection
+return accumulator
+
+},{})
+
+
+const accumulator={furture:'unsure',current:'unsure'}
+const collection={id:1,title:'hello',note:'test'}
+const collectiontemp={id:3,title:'ho',note:'tt'}
+accumulator[132]=12321;
+console.log(accumulator)
+accumulator["hehe"]=collection;
+console.log(accumulator)
+accumulator['1323']=collectiontemp;
+console.log(accumulator)
+accumulator['1323']="waniwoaanwo";
+console.log(accumulator)
 
 
 // const mapDispatchToProps=dispatch=>(
