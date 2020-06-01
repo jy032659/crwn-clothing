@@ -76,26 +76,34 @@ title,
 items
 }
 });
-console.log("transformedcollection is ",transformedCollection)
+
 return transformedCollection.reduce((accumulator,collection)=>{
   accumulator[collection.title.toLowerCase()]=collection;
   return accumulator
 },{})
 }
 
+export const getCurrentUser = () => {
+  return new Promise((resolve, reject) => {
+    const unsubscribe = auth.onAuthStateChanged(userAuth => {
+      unsubscribe();
+      resolve(userAuth);
+    }, reject);
+  });
+};
 
   export const auth=firebase.auth();
   export const firestore=firebase.firestore();
 
-  const provider= new firebase.auth.GoogleAuthProvider();
+  export const googleProvider= new firebase.auth.GoogleAuthProvider();
 //   this gives us access to this new Google auth provider from
 //   the authentication library
 
-  provider.setCustomParameters({prompt:'select_account'})
+  googleProvider.setCustomParameters({prompt:'select_account'})
 
   // what this means is that we want to always trigger the Google pop up
   // whenever we use this Google auth provider for authentication and sign in
-  export const signInWithGoogle=()=>auth.signInWithPopup(provider);
+  export const signInWithGoogle=()=>auth.signInWithPopup(googleProvider);
 
   //to make sure that the pop up one is the google provider
 
